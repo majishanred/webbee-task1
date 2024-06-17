@@ -4,9 +4,253 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Activity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link href="./index.css" rel="stylesheet" />
   </head>
   <body>
+    <header class="header">
+      <div class="header_section header_section__h-64" style="position: relative; z-index: 1">
+        <div class="list" style="font-size: 18px; align-items: center">
+          <img src="./public/Back Outline.svg" alt="" />
+          <p>
+            <span style="font-weight: 500">User Pages </span>
+            <span> - Profile</span>
+          </p>
+        </div>
+        <div class="list list__horizontal list__gap-32" style="margin-left: auto">
+          <a>
+            <div class="icon_link icon_link__vertical">
+              <img src="./public/statistics.svg" alt="" />
+              <span>Statistics</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__vertical">
+              <img src="./public/Calculate Outline.svg" />
+              <span>Invoices</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__vertical">
+              <img src="./public/Receipt Outline.svg" />
+              <span>Schedule</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="header_section">
+        <div class="list list__horizontal">
+          <a href="./index.html">
+            <div class="icon_link icon_link__horizontal icon_link__active">
+              <img src="./public/activity.svg" alt="" />
+              <span>Activity</span>
+            </div>
+          </a>
+          <a href="./map.html">
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/location_outline.svg" alt="" />
+              <span>Map</span>
+            </div>
+          </a>
+          <a href="./timer.html">
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Time Outline.svg" alt="" />
+              <span>Timer</span>
+            </div>
+          </a>
+        </div>
+        <div class="list list__horizontal" style="margin-left: auto">
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Docs Outline.svg" alt="" />
+              <span>Notes</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/People Outline.svg" alt="" />
+              <span>Friends</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Jpg Outline.svg" alt="" />
+              <span>Photos</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Settings Outline.svg" alt="" />
+              <img src="./public/Small Arrow Down Outline.svg" />
+            </div>
+          </a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="background"></div>
+      <div class="container">
+        <div class="list list__vertical list__gap-32">
+          <div class="dropdown">
+            <div class="dropdown_head dropdown_head__h-56"></div>
+            <div class="dropdown_body dropdown_body__p-32">
+              <p class="list list__vertical list__gap-8">
+                <span>
+                  Привет! Я - JavaScript разработчик, ищу компанию и дружный коллектив, в котором смогу развить свои
+                  профессиональные навыки и работать в свое удовольствие.
+                </span>
+                <br />
+                <span>
+                  Frontend stack: JavaScript, TypeScript, React, Next, Mobx, TailwindCSS, Tanstack Query (aka React
+                  Query), Less/Sass, Pug.
+                </span>
+                <br />
+                <span>Backend stack: Node.js, NestJS, SQL, Sequelize</span>
+                <br />
+                <span>
+                  GitHub:
+                  <a href="https://github.com/majishanred?tab=repositories">https://github.com/majishanred</a>
+                </span>
+              </p>
+              <div class="list list__horizontal" style="gap: 8px">
+                <img src="./public/Comment Outline.svg" />
+                <p><a style="color: var(--blue)">Jason Anderson</a> commented:</p>
+              </div>
+              <div class="list list__horizontal" style="gap: 10px">
+                <div style="height: 100%; min-width: 2px; background-color: #d3d8de"></div>
+                <div class="list list__vertical list__gap-16">
+                  <span>
+                    Don’t sit and wait. Get out there, feel life. Touch the sun, and immerse in the sea. Keep love in
+                    your heart. A life without it is like a sunless garden when the flowers are dead. Because summer is
+                    passion, memories, light breeze, the sun that appears on the skin and caresses the face.
+                  </span>
+                  <p style="color: var(--second-tx)">
+                    <span>- Jason, </span><span style="font-style: italic">10:00 am</span>
+                  </p>
+                </div>
+              </div>
+              <div class="list list__horizontal list__gap-16">
+                <div class="list list__horizontal list__gap-8">
+                  <img src="./public/Eye Outline.svg" alt="" />
+                  <span>432</span>
+                </div>
+                <div class="list list__horizontal list__gap-8">
+                  <img src="./public/Comment Outline.svg" alt="" />
+                  <span>47</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropdown_head dropdown_head__h-56">
+              <h3>Sunset Sunset Sunset</h3>
+              <div class="list list__horizontal">
+                <div class="list list__horizontal">
+                  <img src="./public/Time Outline.svg" />
+                  <span>53 minutes ago</span>
+                </div>
+                <img src="./public/Chevron Down Outline.svg" class="image__rotated-180deg" />
+              </div>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropdown_head dropdown_head__h-56">
+              <h3>Sunset Sunset Sunset</h3>
+              <div class="list list__horizontal">
+                <div class="list list__horizontal">
+                  <img src="./public/Time Outline.svg" />
+                  <span>53 minutes ago</span>
+                </div>
+                <img src="./public/Chevron Down Outline.svg" class="image__rotated-180deg" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="aside list list__vertical list__gap-32">
+          <section class="user-badge aside-elem list list__vertical">
+            <img src="./public/my_photo.jfif" class="user-badge_photo" />
+            <div class="list list__vertical list__gap-8">
+              <span style="font-size: 18px">Matvey Kalashnikov</span>
+              <span style="color: var(--second-tx)">Frontend Developer</span>
+            </div>
+            <div>
+              <a href="https://t.me/majilol">
+                <img src="./public/telegram_logo_icon_144811 1.svg" alt="" />
+              </a>
+              <a href="https://hh.ru/resume/c970b859ff0cfcabc00039ed1f61426642325a">
+                <img src="./public/hh.ru__min_ 1.svg" alt="" />
+              </a>
+              <a>
+                <img src="./public/twitter_2_icon-icons.com_59206 1.svg" alt="" />
+              </a>
+            </div>
+          </section>
+          <section class="aside-elem list list__vertical">
+            <div class="dropdown">
+              <div class="dropdown_head dropdown_head__h-38 dropdown_head__p-16">
+                <h4>Navigation</h4>
+                <img src="./public/Chevron Down Outline.svg" />
+              </div>
+              <div class="devider"></div>
+              <div class="dropdown_body dropdown_body__p-16" style="padding-top: 16px">
+                <div>
+                  <img src="./public/Person Outline.svg" alt="" />
+                  <span>My profile</span>
+                </div>
+                <div class="list list__horizontal list__gap-16">
+                  <img src="./public/Finance Outline.svg" alt="" />
+                  <span>Balance</span>
+                  <span style="margin-left: auto; color: var(--second-tx); font-size: 12px">$ 1,430</span>
+                </div>
+                <div class="list list__horizontal list__gap-16">
+                  <img src="./public/Scheme Outline.svg" alt="" />
+                  <span>Connections</span>
+                  <div class="badge badge__red">
+                    <span>29</span>
+                  </div>
+                </div>
+                <div class="list list__horizontal list__gap-16">
+                  <img src="./public/People Outline.svg" alt="" />
+                  <span>Friends</span>
+                </div>
+              </div>
+              <div class="devider"></div>
+              <div class="dropdown_body dropdown_body__p-16" style="padding-top: 16px">
+                <div class="list list__horizontal list__gap-16">
+                  <img src="./public/Calendar Outline.svg" alt="" />
+                  <span>Events</span>
+                  <div class="badge badge__green">
+                    <span>45</span>
+                  </div>
+                </div>
+                <div class="list list__horizontal list__gap-16">
+                  <img src="./public/Settings Outline.svg" alt="" />
+                  <span>Account Settings</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="aside-elem list list__vertical">
+            <div class="dropdown">
+              <div class="dropdown_head dropdown_head__h-38 dropdown_head__p-16">
+                <span>Share your thoughts</span>
+                <img src="./public/Chevron Down Outline.svg" alt="" />
+              </div>
+              <div class="devider"></div>
+              <div class="dropdown_body dropdown_body__p-16" style="padding-top: 8px; gap: 8px">
+                <textarea placeholder="Enter your message..." id="shareTextArea"></textarea>
+                <button id="save-button">Save</button>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
     <script src="./index.js"></script>
   </body>
 </html>

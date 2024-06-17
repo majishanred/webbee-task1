@@ -3,10 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Activity</title>
+    <title>Map</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link href="./index.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="roboto-regular">
+    <header class="header">
+      <div class="header_section header_section__h-64" style="position: relative; z-index: 1">
+        <div class="list" style="font-size: 18px; align-items: center">
+          <img src="./public/Back Outline.svg" alt="" />
+          <p>
+            <span style="font-weight: 500">User Pages </span>
+            <span> - Profile</span>
+          </p>
+        </div>
+        <div class="list list__horizontal list__gap-32" style="margin-left: auto">
+          <a>
+            <div class="icon_link icon_link__vertical">
+              <img src="./public/statistics.svg" alt="" />
+              <span>Statistics</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__vertical">
+              <img src="./public/Calculate Outline.svg" />
+              <span>Invoices</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__vertical">
+              <img src="./public/Receipt Outline.svg" />
+              <span>Schedule</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="header_section">
+        <div class="list list__horizontal">
+          <a href="./index.html">
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/activity.svg" alt="" />
+              <span>Activity</span>
+            </div>
+          </a>
+          <a href="./map.html">
+            <div class="icon_link icon_link__horizontal icon_link__active">
+              <img src="./public/location_outline.svg" alt="" />
+              <span>Map</span>
+            </div>
+          </a>
+          <a href="./timer.html">
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Time Outline.svg" alt="" />
+              <span>Timer</span>
+            </div>
+          </a>
+        </div>
+        <div class="list list__horizontal" style="margin-left: auto">
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Docs Outline.svg" alt="" />
+              <span>Notes</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/People Outline.svg" alt="" />
+              <span>Friends</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Jpg Outline.svg" alt="" />
+              <span>Photos</span>
+            </div>
+          </a>
+          <a>
+            <div class="icon_link icon_link__horizontal">
+              <img src="./public/Settings Outline.svg" alt="" />
+              <img src="./public/Small Arrow Down Outline.svg" />
+            </div>
+          </a>
+        </div>
+      </div>
+    </header>
     <script src="./index.js"></script>
   </body>
 </html>
