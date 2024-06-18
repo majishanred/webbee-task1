@@ -41,5 +41,5 @@ function clearMapNode() {
 }
 
 window.addEventListener('finishedLoading', (e) => {
-  window.location.hash === '#map' ? initMap() : false;
+  location.pathname === '/map' ? initMap() : false;
 });

@@ -1,77 +1,55 @@
-class Router {
-  routes;
-  rootElem;
+const routes = {
+  '/': { title: 'Home', render: 'views/activity.html' },
+  '/map': { title: 'Map', render: 'views/map.html' },
+  '/timer': { title: 'Timer', render: 'views/timer.html' },
+};
 
-  constructor(routes) {
-    this.routes = routes;
-    this.rootElem = document.getElementById('app');
-  }
+const app = document.getElementById('app');
 
-  init() {
-    window.addEventListener('hashchange', (e) => {
-      this.hasChanged();
-    });
-
-    this.hasChanged();
-  }
-
-  hasChanged() {
-    if (window.location.hash.length > 0) {
-      for (let i = 0, length = this.routes.length; i < length; i++) {
-        let route = this.routes[i];
-        if (route.isActiveRoute(window.location.hash.substr(1))) {
-          this.goToRoute(route.htmlName);
-        }
-      }
-    } else {
-      for (let i = 0, length = this.routes.length; i < length; i++) {
-        let route = this.routes[i];
-        if (route.default) {
-          this.goToRoute(route.htmlName);
-        }
-      }
-    }
-  }
-
-  goToRoute(name) {
-    const path = 'http://localhost:8080/views/' + name;
-
+function router() {
+  let view = routes[location.pathname];
+  const path = 'http://localhost:8080/' + view.render;
+  const links = document.querySelectorAll('[data-link]');
+  links.forEach((elem) => {
+    elem.classList.remove('icon_link__acitve');
+    elem.href == location.pathname ? elem.classList.add('icon_link__acitve') : false;
+  });
+  if (view) {
     fetch(path)
       .then((res) => res.text())
       .then((res) => {
-        this.rootElem.innerHTML = res;
-
-        const links = [...document.getElementsByTagName('a')].filter((_) => _.href.includes('#'));
-
-        links.forEach((_) => {
-          _.firstChild.nextSibling.classList.remove('icon_link__active');
-
-          _.href == window.location.href ? _.firstChild.nextSibling.classList.add('icon_link__active') : false;
-        });
+        document.title = view.title;
+        app.innerHTML = res;
 
         window.dispatchEvent(new CustomEvent('finishedLoading'));
       });
+  } else {
+    history.replaceState('', '', '/');
+    router();
   }
 }
 
-class Route {
-  name;
-  htmlName;
-  default;
+const links = document.querySelectorAll('[data-link]');
 
-  constructor(name, htmlName, defaultRoute) {
-    this.name = name;
-    this.htmlName = htmlName;
-    this.default = defaultRoute;
+window.addEventListener('click', (e) => {
+  if (
+    e.target.matches('[data-link]') ||
+    e.target.parentElement.matches('[data-link]') ||
+    e.target.parentElement.parentElement.matches('[data-link]')
+  ) {
+    e.preventDefault();
+    let href;
+    if (e.target.matches('[data-link]')) {
+      href = e.target.href;
+    } else if (e.target.parentElement.matches('[data-link]')) {
+      href = e.target.parentElement.href;
+    }
+
+    history.pushState(null, null, href);
+    router();
   }
+});
 
-  isActiveRoute(hashedPath) {
-    return hashedPath.replace('#', '') === this.name;
-  }
-}
-
-new Router([
-  new Route('', 'activity.html', true),
-  new Route('map', 'map.html'),
-  new Route('timer', 'timer.html'),
-]).init();
+// Update router
+window.addEventListener('popstate', router);
+window.addEventListener('DOMContentLoaded', router);
