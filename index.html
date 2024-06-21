@@ -18,16 +18,17 @@
     />
     <link href="./index.css" rel="stylesheet" />
     <script src="https://api-maps.yandex.ru/v3/?apikey=962a11d0-5ab4-4c5a-91d5-62adf4368e6f&lang=ru_RU"></script>
+    <script src="./index.js"></script>
   </head>
-  <body>
+  <body class="body">
     <header class="header">
-      <div class="d-flex flex-row align-items-center position-relative z-1 header_section" style="height: 60px">
-        <div class="d-flex flex-row align-items-center">
+      <div class="header_section d-flex align-items-center position-relative z-1">
+        <div class="logo d-flex flex-row align-items-center">
           <img src="./public/Back Outline.svg" alt="" />
-          <p style="font-size: 18px">
-            <span style="font-weight: 500">User Pages </span>
+          <div class="flex align-items-center">
+            <span class="bold">User Pages </span>
             <span> - Profile</span>
-          </p>
+          </div>
         </div>
         <div class="d-flex flex-row align-items-center gap-32 ms-auto">
           <a>
@@ -52,40 +53,46 @@
       </div>
       <div class="header_section d-flex">
         <div class="d-flex flex-row">
-          <a href="/" class="d-flex align-items-center justify-content-center px-16 h-40 gap-8" data-link>
-              <img src="./public/activity.svg" alt="" />
-              <span>Activity</span>
+          <a
+            href="/"
+            class="link d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal"
+            data-link
+          >
+            <img src="./public/activity.svg" alt="" />
+            <span>Activity</span>
           </a>
-          <a href="/map" class="d-flex align-items-center justify-content-center px-16 h-40 gap-8" data-link>
-              <img src="./public/location_outline.svg" alt="" />
-              <span>Map</span>
+          <a
+            href="/map"
+            class="link d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal"
+            data-link
+          >
+            <img src="./public/location_outline.svg" alt="" />
+            <span>Map</span>
           </a>
-          <a href="/timer" class="d-flex align-items-center justify-content-center px-16 h-40 gap-8" data-link>
-              <img src="./public/Time Outline.svg" alt="" />
-              <span>Timer</span>
+          <a
+            href="/timer"
+            class="link d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal"
+            data-link
+          >
+            <img src="./public/Time Outline.svg" alt="" />
+            <span>Timer</span>
           </a>
         </div>
         <div class="d-flex flex-row ml-auto ms-auto">
-          <a data-link="">
-            <div class="d-flex align-items-center justify-content-center px-16 h-40 gap-8">
-              <img src="./public/Docs Outline.svg" alt="" />
-              <span>Notes</span>
-            </div>
+          <a class="link d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal">
+            <img src="./public/Docs Outline.svg" alt="" />
+            <span>Notes</span>
           </a>
-          <a>
-            <div class="d-flex align-items-center justify-content-center px-16 h-40 gap-8">
-              <img src="./public/People Outline.svg" alt="" />
-              <span>Friends</span>
-            </div>
+          <a class="link d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal">
+            <img src="./public/People Outline.svg" alt="" />
+            <span>Friends</span>
           </a>
-          <a>
-            <div class="d-flex align-items-center justify-content-center px-16 h-40 gap-8">
-              <img src="./public/Jpg Outline.svg" alt="" />
-              <span>Photos</span>
-            </div>
+          <a class="link d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal">
+            <img src="./public/Jpg Outline.svg" alt="" />
+            <span>Photos</span>
           </a>
-          <a>
-            <div class="d-flex align-items-center justify-content-center px-16 h-40 gap-8">
+          <a class="link">
+            <div class="d-flex align-items-center justify-content-center px-16 h-40 gap-8 icon-link__horizontal">
               <img src="./public/Settings Outline.svg" alt="" />
               <img src="./public/Small Arrow Down Outline.svg" />
             </div>
@@ -95,10 +102,7 @@
     </header>
     <main>
       <div class="background"></div>
-      <div id="app">
+      <div id="app"></div>
     </main>
-    <script src="./timer.js"></script>
-    <script src="./map.js"></script>
-    <script src="./index.js"></script>
   </body>
 </html>
