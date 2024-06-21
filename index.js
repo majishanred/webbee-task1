@@ -3,8 +3,7 @@ const timer = initTimer();
 const routes = {
   '/': { title: 'Home', render: 'views/activity.html', scripts: [] },
   '/map': { title: 'Map', render: 'views/map.html', scripts: [initMap] },
-  '/timer': { title: 'Timer', render: 'views/timer.html', scripts: [] },
-  '/404': { title: '404', render: 'views/404.html', scripts: [] },
+  '/timer': { title: 'Timer', render: 'views/timer.html', scripts: [timer] },
 };
 
 const app = document.getElementById('app');
@@ -18,23 +17,27 @@ function handleNavigation(e) {
 }
 
 function switchLocation() {
-  let view = routes[location.pathname] || routes['/404'];
+  let view = routes[location.pathname];
   const path = 'http://localhost:8080/' + view.render;
-  fetch(path)
-    .then((res) => res.text())
-    .then((res) => {
-      document.title = view.title;
-      app.innerHTML = res;
-      paintLink();
-      view.scripts.forEach((script) => script());
-    });
+  if (view) {
+    fetch(path)
+      .then((res) => res.text())
+      .then((res) => {
+        document.title = view.title;
+        app.innerHTML = res;
+        paintLink();
+        view.scripts.forEach((script) => script());
+      });
+  } else {
+    history.replaceState('', '', '/');
+    switchLocation();
+  }
 }
 
 function paintLink() {
-  document.querySelectorAll('[data-link]').forEach((elem) => {
-    elem.href === location.href && routes[location.pathname]
-      ? elem.classList.add('icon-link__active')
-      : elem.classList.remove('icon-link__active');
+  document.querySelectorAll('[data-link]').forEach((link) => {
+    let href = link.href.split('http://localhost:8080')[1];
+    location.pathname === href ? link.classList.add('icon-link__active') : link.classList.remove('icon-link__active');
   });
 }
 
@@ -84,13 +87,14 @@ window.addEventListener('DOMContentLoaded', switchLocation);
 
 function initTimer() {
   let startDate = new Date();
-  let pauseInterval = 0;
+  let pauseDate;
+  let savedDiff = 0;
+
   let timerElement = document.createElement('div');
   let container;
-  let timer;
 
   const paintTimer = () => {
-    let diffDate = (new Date() - startDate - pauseInterval) / 1000;
+    let diffDate = (new Date() - startDate - savedDiff) / 1000;
     let hours = Math.floor(diffDate / 3600).toString();
     let minutes = Math.floor(diffDate / 60).toString();
     let seconds = Math.floor(diffDate % 60).toString();
@@ -101,25 +105,26 @@ function initTimer() {
 
     timerElement.innerText = `${hours}` + ':' + `${minutes}` + ':' + `${seconds}`;
 
-    if (container) container.appendChild(timerElement);
+    container ? container.appendChild(timerElement) : false;
   };
+
+  let timer = setInterval(paintTimer, 1000);
 
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState == 'hidden') {
-      pauseInterval = new Date();
+      pauseDate = new Date();
+      clearInterval(timer);
     } else {
-      pauseInterval = new Date() - pauseInterval;
+      savedDiff += new Date() - pauseDate;
+      paintTimer();
+      timer = setInterval(paintTimer, 1000);
     }
   });
 
-  return {
-    init: () => {
-      container = document.getElementById('timer');
-      paintTimer();
-      timer = setInterval(paintTimer, 1000);
-    },
-    cleanup: () => {
-      timer = clearInterval(timer);
-    },
+  return () => {
+    container = document.getElementById('timer');
+    paintTimer();
+    clearInterval(timer);
+    timer = setInterval(paintTimer, 1000);
   };
 }
