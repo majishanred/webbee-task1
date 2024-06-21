@@ -4,22 +4,25 @@ const routes = {
   '/': { title: 'Home', render: 'views/activity.html', scripts: [] },
   '/map': { title: 'Map', render: 'views/map.html', scripts: [initMap] },
   '/timer': { title: 'Timer', render: 'views/timer.html', scripts: [timer] },
+  404: { titile: 'Not Found', render: 'views/404.html', scripts: [] },
 };
 
-const app = document.getElementById('app');
+window.addEventListener('DOMContentLoaded', initRouter);
 
-document.querySelectorAll('[data-link]').forEach((link) => link.addEventListener('click', handleNavigation, true));
+function initRouter() {
+  const app = document.getElementById('app');
 
-function handleNavigation(e) {
-  e.preventDefault();
-  window.history.pushState({}, '', e.currentTarget.href);
-  switchLocation();
-}
+  document.querySelectorAll('[data-link]').forEach((link) => link.addEventListener('click', handleNavigation, true));
 
-function switchLocation() {
-  let view = routes[location.pathname];
-  const path = 'http://localhost:8080/' + view.render;
-  if (view) {
+  function handleNavigation(e) {
+    e.preventDefault();
+    window.history.pushState({}, '', e.currentTarget.href);
+    switchLocation();
+  }
+
+  function switchLocation() {
+    let view = routes[location.pathname] || routes['404'];
+    const path = 'http://localhost:8080/' + view.render;
     fetch(path)
       .then((res) => res.text())
       .then((res) => {
@@ -28,17 +31,19 @@ function switchLocation() {
         paintLink();
         view.scripts.forEach((script) => script());
       });
-  } else {
-    history.replaceState('', '', '/');
-    switchLocation();
   }
-}
 
-function paintLink() {
-  document.querySelectorAll('[data-link]').forEach((link) => {
-    let href = link.href.split('http://localhost:8080')[1];
-    location.pathname === href ? link.classList.add('icon-link__active') : link.classList.remove('icon-link__active');
-  });
+  function paintLink() {
+    document
+      .querySelectorAll('[data-link]')
+      .forEach((link) =>
+        location.href === link.href && routes[location.pathname]
+          ? link.classList.add('icon-link__active')
+          : link.classList.remove('icon-link__active'),
+      );
+  }
+
+  switchLocation();
 }
 
 async function initMap() {
@@ -82,8 +87,6 @@ async function initMap() {
     elem.innerHTML = null;
   }
 }
-
-window.addEventListener('DOMContentLoaded', switchLocation);
 
 function initTimer() {
   let startDate = new Date();
