@@ -90,14 +90,14 @@ async function initMap() {
 
 function initTimer() {
   let startDate = new Date();
-  let pauseDate;
-  let savedDiff = 0;
-
+  let pauseDate = 0;
   let timerElement = document.createElement('div');
   let container;
 
+  let timerId;
+
   const paintTimer = () => {
-    let diffDate = (new Date() - startDate - savedDiff) / 1000;
+    let diffDate = (new Date() - startDate - pauseDate) / 1000;
     let hours = Math.floor(diffDate / 3600).toString();
     let minutes = Math.floor(diffDate / 60).toString();
     let seconds = Math.floor(diffDate % 60).toString();
@@ -107,27 +107,20 @@ function initTimer() {
     seconds = seconds.length < 2 ? '0' + seconds : seconds;
 
     timerElement.innerText = `${hours}` + ':' + `${minutes}` + ':' + `${seconds}`;
-
-    container ? container.appendChild(timerElement) : false;
   };
-
-  let timer = setInterval(paintTimer, 1000);
 
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState == 'hidden') {
       pauseDate = new Date();
-      clearInterval(timer);
     } else {
-      savedDiff += new Date() - pauseDate;
-      paintTimer();
-      timer = setInterval(paintTimer, 1000);
+      pauseDate = new Date() - pauseDate;
     }
   });
 
   return () => {
     container = document.getElementById('timer');
+    container.appendChild(timerElement);
     paintTimer();
-    clearInterval(timer);
-    timer = setInterval(paintTimer, 1000);
+    timerId = setInterval(paintTimer, 1000);
   };
 }
