@@ -1,13 +1,11 @@
-const timer = initTimer();
-
 const routes = {
   '/': { title: 'Home', render: 'views/activity.html', scripts: [] },
   '/map': { title: 'Map', render: 'views/map.html', scripts: [initMap] },
-  '/timer': { title: 'Timer', render: 'views/timer.html', scripts: [timer] },
+  '/timer': { title: 'Timer', render: 'views/timer.html', scripts: [initTimer] },
   404: { titile: 'Not Found', render: 'views/404.html', scripts: [] },
 };
 
-window.addEventListener('DOMContentLoaded', initRouter);
+initRouter();
 
 function initRouter() {
   const app = document.getElementById('app');
@@ -16,6 +14,7 @@ function initRouter() {
 
   function handleNavigation(e) {
     e.preventDefault();
+    window.dispatchEvent(new CustomEvent('cleanup:' + location.pathname));
     window.history.pushState({}, '', e.currentTarget.href);
     switchLocation();
   }
@@ -30,6 +29,7 @@ function initRouter() {
         app.innerHTML = res;
         paintLink();
         view.scripts.forEach((script) => script());
+        window.dispatchEvent(new CustomEvent('init:' + location.pathname));
       });
   }
 
@@ -43,49 +43,63 @@ function initRouter() {
       );
   }
 
+  Object.entries(routes).forEach((pair) => {
+    const [path, component] = pair;
+    component.scripts.forEach(async (script) => {
+      const { init, cleanup } = await script();
+      window.addEventListener('init:' + path, init);
+      window.addEventListener('cleanup:' + path, cleanup);
+    });
+  });
+
   switchLocation();
 }
 
 async function initMap() {
   await ymaps3.ready;
 
-  const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } = ymaps3;
+  return {
+    init: () => {
+      const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } = ymaps3;
 
-  clearMapNode();
-  const map = new YMap(
-    document.getElementById('map'),
+      clearMapNode();
+      const map = new YMap(
+        document.getElementById('map'),
 
-    {
-      location: {
-        center: [20.539817, 54.722352],
+        {
+          location: {
+            center: [20.539817, 54.722352],
 
-        zoom: 18,
-      },
+            zoom: 18,
+          },
+        },
+      );
+
+      map.addChild(new YMapDefaultSchemeLayer());
+
+      map.addChild(new YMapDefaultFeaturesLayer());
+
+      const content = document.createElement('section');
+
+      const marker = new YMapMarker(
+        {
+          coordinates: [20.539817, 54.722352],
+          draggable: false,
+        },
+        content,
+      );
+
+      map.addChild(marker);
+      content.style =
+        'width: 25px; height: 25px; border-radius: 9999px; background-color: red; position: relative; top: -12.5px; left: -12.5px';
+
+      function clearMapNode() {
+        const elem = document.getElementById('map');
+        elem.innerHTML = null;
+      }
     },
-  );
-
-  map.addChild(new YMapDefaultSchemeLayer());
-
-  map.addChild(new YMapDefaultFeaturesLayer());
-
-  const content = document.createElement('section');
-
-  const marker = new YMapMarker(
-    {
-      coordinates: [20.539817, 54.722352],
-      draggable: false,
-    },
-    content,
-  );
-
-  map.addChild(marker);
-  content.style =
-    'width: 25px; height: 25px; border-radius: 9999px; background-color: red; position: relative; top: -12.5px; left: -12.5px';
-
-  function clearMapNode() {
-    const elem = document.getElementById('map');
-    elem.innerHTML = null;
-  }
+    cleanup: () => {},
+  };
 }
 
 function initTimer() {
@@ -117,10 +131,15 @@ function initTimer() {
     }
   });
 
-  return () => {
-    container = document.getElementById('timer');
-    container.appendChild(timerElement);
-    paintTimer();
-    timerId = setInterval(paintTimer, 1000);
+  return {
+    init: () => {
+      container = document.getElementById('timer');
+      paintTimer();
+      container.appendChild(timerElement);
+      timerId = setInterval(paintTimer, 1000);
+    },
+    cleanup: () => {
+      clearInterval(timerId);
+    },
   };
 }

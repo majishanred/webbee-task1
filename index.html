@@ -17,16 +17,16 @@
       crossorigin="anonymous"
     />
     <link href="./index.css" rel="stylesheet" />
-    <script src="https://api-maps.yandex.ru/v3/?apikey=962a11d0-5ab4-4c5a-91d5-62adf4368e6f&lang=ru_RU"></script>
-    <script src="./index.js"></script>
+    <script src="https://api-maps.yandex.ru/v3/?apikey=962a11d0-5ab4-4c5a-91d5-62adf4368e6f&lang=ru_RU" defer></script>
+    <script src="./index.js" defer></script>
   </head>
   <body class="body">
     <header class="header">
-      <div class="header_section d-flex align-items-center position-relative z-1">
+      <div class="header_section d-flex align-items-center position-relative">
         <div class="logo d-flex flex-row align-items-center">
           <img src="./public/Back Outline.svg" alt="" />
           <div class="flex align-items-center">
-            <span class="bold">User Pages </span>
+            <span class="text-bold">User Pages </span>
             <span> - Profile</span>
           </div>
         </div>
@@ -51,7 +51,7 @@
           </a>
         </div>
       </div>
-      <div class="header_section d-flex">
+      <div class="header_section d-flex background-secondary">
         <div class="d-flex flex-row">
           <a
             href="/"
